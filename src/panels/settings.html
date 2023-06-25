@@ -1,0 +1,133 @@
+<div class="settings-content">
+    <div class="tabs-settings-btn">
+        <button class="tab-btn-css tab-btn active-tab-btn default-tab-btn">Cuentas</button>
+        <button class="tab-btn-css tab-btn">Ram</button>
+        <button class="tab-btn-css tab-btn">Resolucion</button>
+        <button class="tab-btn-css tab-btn">Mas</button>
+        <button class="tab-btn-css save-tabs-btn">Guardar</button>
+    </div>
+
+    <div class="tabs-settings-content active-tab-content">
+        <div class="center-align">
+            <div class="title-settings">Cuentas</div>
+            <div class="accounts"></div>
+            <button class="add-account">Añadir otra cuenta +</button>
+        </div>
+    </div>
+
+    <div class="tabs-settings-content">
+        <div class="settings-content-scroll">
+            <div class="title-settings">Parametros RAM.</div>
+            <div class="java-settings">
+                <div class="information">
+                    Definición de la memoria RAM asignada a tu juego,<br> una mayor cantidad aumentará el rendimiento de tu juego.
+                    <br><br>
+                    <b>- RAM Maxima :</b> Indica la cantidad total de RAM asignada a tu juego. Se recomienda que no excedas el 50% de la cantidad total de RAM presente en tu PC para que pueda funcionar correctamente. Si tu computadora
+                    tiene más de 8GB de RAM, recomendamos asignarle 3GB. Si su computadora tiene 4 GB o menos, no asigne más de 2 GB.<br><br>
+                    <b>- RAM Minima :</b> Indica la cantidad mínima de RAM asignada al iniciar tu juego, se recomienda no poner más de 3GB para este valor. El valor típico es 1GB.
+                </div>
+                <div class="ram-info">
+                    <div class="memory-slider" min="0.5" max="8" step="0.5">
+                        <div class="slider-touch-left">
+                            <span value="0 Go"></span>
+                        </div>
+                        <div class="slider-touch-right">
+                            <span value="0 Go"></span>
+                        </div>
+                        <div class="slider-line">
+                            <span></span>
+                        </div>
+                    </div>
+
+                    <div class="ram-info-block">
+                        <b>Tienes un total de <span id="total-ram">0 </span>.</b><br>
+                        <b>Tienes un total de <span id="free-ram">0 </span> disponible.</b>
+                    </div>
+                </div>
+            </div>
+
+            <div class="title-settings">Ubicacion de Java.</div>
+            <div class="java-settings">
+                <div class="information">
+                    El Launcher utiliza una version de Java Propia.<br> No es necesario hacer ningun cambio en esta zona
+                </div>
+                <input type="text" class="path" disabled />
+                <button class="path-button">Desactivado</button>
+                <button class="path-button-reset">Desactivado</button>
+                <input type="file" class="path-file" accept="application/octet-stream" />
+            </div>
+
+            <div class="title-settings">Argumentos de java.</div>
+            <div class="java-settings">
+                <div class="information">
+                    Desactivado.
+                </div>
+                <input type="text" class="args-settings" placeholder="No tocar esta zona para evitar errores." />
+            </div>
+        </div>
+    </div>
+
+    <div class="tabs-settings-content">
+        <div class="center-page">
+            <div class="title-settings">Resolucion del Juego.</div>
+            <div class="java-settings">
+                <div class="information">
+                    Pon la Resolucion del juego mas comoda que creas para ti.
+                </div>
+                <div class="input-size-content">
+                    <div class="input-size">
+                        <input type="text" class="width-size input-settings" disabled>
+                        <div class="size-cross"></div>
+                        <input type="text" class="height-size input-settings" disabled>
+                        <div class="select-wrap icon-monitor">
+                            <select id="select" style="cursor:pointer" class="select">
+                                <option disabled selected value style="display: none">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</option>
+                                <optgroup label="Ratio 4:3">
+                                    <option value="640 x 480">640 x 480</option>
+                                    <option value="800 x 600">800 x 600</option>
+                                    <option value="1024 x 768">1024 x 768</option>
+                                    <option value="1280 x 960">1280 x 960</option>
+                                    <option value="1280 x 1024">1280 x 1024</option>
+                                </optgroup>
+                                <optgroup label="Ratio 16:9">
+                                    <option value="854 x 480">854 x 480</option>
+                                    <option value="1280 x 720">1280 x 720</option>
+                                    <option value="1360 x 768">1360 x 768</option>
+                                    <option value="1600 x 900">1600 x 900</option>
+                                    <option value="1920 x 1080">1920 x 1080</option>
+                                </optgroup>
+                                <optgroup label="Ratio 16:10">
+                                    <option value="1280 x 768">1280 x 768</option>
+                                    <option value="1280 x 800">1280 x 800</option>
+                                    <option value="1440 x 900">1440 x 900</option>
+                                    <option value="1600 x 1024">1600 x 1024</option>
+                                    <option value="1680 x 1050">1680 x 1050</option>
+                                </optgroup>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="tabs-settings-content">
+        <div class="center-page">
+            <div class="title-settings">Ajustes del Launcher</div>
+            <div class="java-settings information">         
+                <input type="checkbox" class="checkbox-settings" id="launcher-close"><label for="launcher-close"><div class="checkround"></div></label> Cerrar el launcher despues de iniciar el Juego (Por Defecto)</br>
+                <input type="checkbox" class="checkbox-settings" id="launcher-close-all"><label for="launcher-close-all"><div class="checkround"></div></label> Cerrar el juego si el launcher tambien esta cerrado.</br>
+                <input type="checkbox" class="checkbox-settings" id="launcher-open"><label for="launcher-open"><div class="checkround"></div></label> Mantener el Launcher abierto despues de abrir el juego
+            </div>
+            <div class="title-settings">Ajustes de Audio</div>
+            <div class="java-settings information">  
+                Silenciar el Audio del Launcher:
+            <div style="display: block;position: absolute;top: 12px;left: 272px;" id="button"><button id="muteButton" class="mutebtn" onclick="muteBtn()"> Mute <img id="muteimg" style="width: 25px;margin-left: 6px;vertical-align: middle;" src="assets/images/logo/mute.svg"></button></div>
+            </div>
+            <div class="title-settings">Creditos Oficiales</div>
+            <div class="java-settings information"> 
+                Gracias a Fefedu973 por dejarnos utilizar el sistema de video en el Launcher.<br>Gracias a <FONT COLOR="orange"><b>Minemu Network</b> </FONT><img src="C:\Users\ElFo2K - PC\Documents\GitHub\Selvania-Launcher\src\assets\images\default\minemu.png"align="left"hspace="0"> por Otorgarnos su servicio host para el Evento ❤️<br><br>Launcher Modificado por ElFo2K | v1.0.1 BETA
+                </div>
+        </div>
+    </div>
+</div>41
