@@ -1,5 +1,5 @@
 /**
- * @author Luuxis
+ * @author 2K Studio
  * @license CC-BY-NC 4.0 - https://creativecommons.org/licenses/by-nc/4.0/
  */
 
@@ -24,6 +24,12 @@ class Home {
         this.initLaunch();
         this.initBtn();
         this.initBtn1();
+        this.IniciarEstadoDiscord();
+    }
+
+    async IniciarEstadoDiscord() {
+        ipcRenderer.send('new-status-discord');
+
     }
 
     async initNews() {
@@ -62,7 +68,7 @@ class Home {
                         <div class="news-content">
                             <div class="bbWrapper">
                                 <p>${News.content.replace(/\n/g, '</br>')}</p>
-                                <p class="news-author">Administracion<span> Manti Studio's</span></p>
+                                <p class="news-author">Manti's Betatest</p>
                             </div>
                         </div>`
                     news.appendChild(blockNews);
@@ -192,12 +198,19 @@ class Home {
                 progressBar.style.display = "none"
                 tooltip.style.display = "block"
                 info.innerHTML = `Jugando`
-                document.querySelector(".tooltiptext").innerHTML = `Estas en el Juego`
+                document.querySelector(".tooltiptext").innerHTML = `Estas Jugando..`
                 var muteButton = document.getElementById('button');
                 videoObjects[0].muted = true;
                 videoObjects[1].muted = true;
                 muteButton.innerHTML = `<button id="muteButton" class="mutebtn" onclick="muteBtn()"> Desmutear Musica <img id="muteimg" style="width: 25px;margin-left: 6px;vertical-align: middle;" src="assets/images/logo/unmute.svg"></button>`;
                 console.log(e);
+
+                if(e.includes(`Setting user: ${account.name}`)) {
+                    console.log('Minecraft iniciado correctamente');
+                    info.innerHTML = `Minecraft iniciado<br>correctamente`
+
+                    ipcRenderer.send('new-status-discord-jugando',  `Jugando a 'Betatest'`)
+                }
             })
 
             launch.on('close', () => {
@@ -214,6 +227,8 @@ class Home {
                 muteButton.innerHTML = `<button id="muteButton" class="mutebtn" onclick="muteBtn()"> Desmutear Musica <img id="muteimg" style="width: 25px;margin-left: 6px;vertical-align: middle;" src="assets/images/logo/unmute.svg"></button>`;
                 new logger('Launcher', '#7289da');
                 console.log('Close');
+
+                ipcRenderer.send('delete-and-new-status-discord')
             })
         })
     }

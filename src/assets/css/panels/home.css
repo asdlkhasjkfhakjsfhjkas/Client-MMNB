@@ -38,9 +38,9 @@
     margin: 0;
     border-style: solid;
     border-radius: 1px;
-    border-color: #ffae00;
+    border-color: #0593f1;
     color: transparent;
-    background-color: rgba(255, 196, 0, 0.185);
+    background-color: rgba(0, 132, 255, 0.185);
     background-image: url("../../images/settins.png");
     background-position: center;
     background-size: 20px 20px;
@@ -52,14 +52,14 @@
     border-bottom-left-radius: 20px;
     font: normal normal bold 20px/25px Trebuchet MS;
     transition: 0.2s;
-    box-shadow: 0px 0px 3px rgb(155, 121, 9);
+    box-shadow: 0px 0px 3px #0064a7;
 }
 
 .settings-btn:hover {
     cursor: pointer;
     transition: 0.2s;
     background-image: url("../../images/setting2.png");
-    background-color: #be8d04;
+    background-color: #00489b;
 }
 
 .icon-settings:before {
@@ -206,9 +206,10 @@
 }
 
 .news-list {
+    left: 304px;
     position: relative;
     overflow: auto;
-    width: 100%;
+    width: 50%;
 }
 
 .news-list::-webkit-scrollbar {
@@ -305,7 +306,7 @@
 .news-author {
     text-align: end;
     margin: 0;
-    color: #F1F1F1;
+    color: #ffd000;
 }
 
 .news-author span {

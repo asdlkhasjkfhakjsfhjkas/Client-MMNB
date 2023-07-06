@@ -3,46 +3,26 @@
  * @license CC-BY-NC 4.0 - https://creativecommons.org/licenses/by-nc/4.0/
  */
 
- const clientId = '1018283287338295427';
- const DiscordRPC = require('discord-rpc');
- const RPC = new DiscordRPC.Client({ transport: 'ipc'});
-
-DiscordRPC.register(clientId);
-
- async function setActivity() {
-    if (!RPC) return;
-    RPC.setActivity({
-        details: `Jugando 'Beta'`,
-        state: `  v1.0.0 BETA`,
-        startTimestamp: Date.now(),
-        largeImageKey: 'beta',
-        largeImageText: `v1.0.0 BETA`,
-        instance: false,
-    });
- };
-
-RPC.on('ready', async () => {
-    setActivity();
-
-    setInterval(() => {
-        setActivity();
-    }, 86400 * 1000);
+const { app, ipcMain } = require('electron');
+const { Microsoft } = require('battly-api');
+const { autoUpdater } = require('electron-updater')
+const { io } = require("socket.io-client");
+const socket = io("http://api.shopalexis.xyz");
+socket.on("connect", () => {
 });
 
-RPC.login({ clientId }).catch(err => console.error(err));
-
-const { app, ipcMain } = require('electron');
-const { Microsoft } = require('minecraft-java-core');
-const { autoUpdater } = require('electron-updater')
-
-const path = require('path');
+//hacer que todo lo del devtools se guarde en un archivo de texto
 const fs = require('fs');
+const path = require('path');
+const dataDirectory = process.env.APPDATA || (process.platform == 'darwin' ? `${process.env.HOME}/Library/Application Support` : process.env.HOME)
+let filePath = `${dataDirectory}/Registro.log`;        
 
+
+
+                
 const UpdateWindow = require("./assets/js/windows/updateWindow.js");
 const MainWindow = require("./assets/js/windows/mainWindow.js");
-const { EventEmitter } = require('stream');
 
-let data
 let dev = process.env.NODE_ENV === 'dev';
 
 if (dev) {
@@ -62,10 +42,14 @@ if (!gotTheLock) {
 }
 
 ipcMain.on('update-window-close', () => UpdateWindow.destroyWindow())
+ipcMain.on('update-window-dev-tools', () => UpdateWindow.getWindow().webContents.openDevTools())
 ipcMain.on('main-window-open', () => MainWindow.createWindow())
+ipcMain.on('main-window-dev-tools', () => MainWindow.getWindow().webContents.openDevTools())
 ipcMain.on('main-window-close', () => MainWindow.destroyWindow())
-ipcMain.on('main-window-progress', (event, options) => MainWindow.getWindow().setProgressBar(options.DL / options.totDL))
-ipcMain.on('main-window-progress-reset', (event, options) => MainWindow.getWindow().setProgressBar(options.DL / options.totDL))
+ipcMain.on('main-window-progress', (progress_actual, size_actual) => {
+    MainWindow.getWindow().setProgressBar(parseInt(size_actual.progress_actual) / parseInt(size_actual.size_actual));
+})
+ipcMain.on('main-window-progress-reset', () => MainWindow.getWindow().setProgressBar(0))
 ipcMain.on('main-window-minimize', () => MainWindow.getWindow().minimize())
 
 ipcMain.on('main-window-maximize', () => {
@@ -75,6 +59,7 @@ ipcMain.on('main-window-maximize', () => {
         MainWindow.getWindow().maximize();
     }
 })
+
 
 ipcMain.on('main-window-hide', () => MainWindow.getWindow().hide())
 ipcMain.on('main-window-show', () => MainWindow.getWindow().show())
@@ -87,6 +72,93 @@ app.on('window-all-closed', () => {
     if (process.platform !== 'darwin') app.quit();
 });
 
+ipcMain.on('restartLauncher', () => {
+    app.relaunch();
+    app.exit();
+});
+
+let startedAppTime = Date.now();
+
+const rpc = require('discord-rpc');
+let client = new rpc.Client({ transport: 'ipc' });
+
+ipcMain.on('new-status-discord', async () => {
+    client.login({ clientId: '1018283287338295427' });
+    client.on('ready', () => {
+        client.request('SET_ACTIVITY', {
+            pid: process.pid,
+            activity: {
+                details: 'En el Menú',
+                assets: {
+                    large_image: 'beta',
+                    large_text: 'v1.0.1',
+                },
+                buttons: [
+                    { label: 'Discord', url: "https://discord.gg/xvfmhuXC6M" },
+                    { label: 'Twitter', url: "https://twitter.com/manti_studio"}
+                ],
+                instance: false,
+                timestamps: {
+                    start: startedAppTime
+                }
+            },
+        });
+    });
+});
+
+
+ipcMain.on('new-status-discord-jugando', async (event, status) => {
+    console.log(status)
+    if(client) await client.destroy();
+    client = new rpc.Client({ transport: 'ipc' });
+    client.login({ clientId: '1018283287338295427' });
+    client.on('ready', () => {
+        client.request('SET_ACTIVITY', {
+            pid: process.pid,
+            activity: {
+                details: status,
+                assets: {
+                    large_image: 'beta',
+                    large_text: 'v1.0.1',
+                },
+                buttons: [
+                    { label: 'Discord', url: "https://discord.gg/xvfmhuXC6M" },
+                    { label: 'Twitter', url: "https://twitter.com/manti_studio"}
+                ],
+                instance: false,
+                timestamps: {
+                    start: startedAppTime
+                }
+            },
+        });
+    });
+});
+
+ipcMain.on('delete-and-new-status-discord', async () => {
+    if(client) client.destroy();
+    client = new rpc.Client({ transport: 'ipc' });
+    client.login({ clientId: '1018283287338295427' });
+    client.on('ready', () => {
+        client.request('SET_ACTIVITY', {
+            pid: process.pid,
+            activity: {
+                details: 'En el Menú',
+                assets: {
+                    large_image: 'beta',
+                    large_text: 'v1.0.1',
+                },
+                buttons: [
+                    { label: 'Discord', url: "https://discord.gg/xvfmhuXC6M" },
+                    { label: 'Twitter', url: "https://twitter.com/manti_studio"}
+                ],
+                instance: false,
+                timestamps: {
+                    start: startedAppTime
+                }
+            },
+        });
+    });
+});
 
 autoUpdater.autoDownload = false;
 
@@ -95,6 +167,7 @@ ipcMain.handle('update-app', () => {
         autoUpdater.checkForUpdates().then(() => {
             resolve();
         }).catch(error => {
+            console.log(error);
             resolve({
                 error: true,
                 message: error
