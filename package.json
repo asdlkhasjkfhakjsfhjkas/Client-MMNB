@@ -1,7 +1,7 @@
 {
-    "name": "betatest",
+    "name": "manti-betatest",
     "preductname": "Manti Betatest",
-    "version": "2.0.0",
+    "version": "2.0.1",
     "description": "Ayuda a testear",
     "main": "src/app.js",
     "author": "ElFo2K",
