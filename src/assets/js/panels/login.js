@@ -1,12 +1,12 @@
 /**
- * @author 2K Studio
+ * @author Luuxis
  * @license CC-BY-NC 4.0 - https://creativecommons.org/licenses/by-nc/4.0/
  */
 
 'use strict';
 
 import { database, changePanel, addAccount, accountSelect } from '../utils.js';
-const { Mojang } = require('minecraft-java-core');
+const { AZauth } = require('minecraft-java-core');
 const { ipcRenderer } = require('electron');
 
 class Login {
@@ -19,8 +19,9 @@ class Login {
     }
 
     getOnline() {
-        console.log(`Initializing microsoft Panel...`)
-        console.log(`Initializing mojang Panel...`)
+        // console.log(`Initializing microsoft Panel...`)
+        // console.log(`Initializing mojang Panel...`)
+        console.log(`Initializing Az Panel...`)
         this.loginMicrosoft();
         this.loginMojang();
         document.querySelector('.cancel-login').addEventListener("click", () => {
@@ -30,9 +31,9 @@ class Login {
     }
 
     getOffline() {
-        console.log(`Initializing microsoft Panel...`)
-        console.log(`Initializing mojang Panel...`)
-        console.log(`Initializing offline Panel...`)
+        console.log(`Iniciando Manti Panel...`)
+        console.log(`Iniciando Manti Panel...`)
+        console.log(`Iniciando Manti Panel...`)
         this.loginMicrosoft();
         this.loginOffline();
         document.querySelector('.cancel-login').addEventListener("click", () => {
@@ -67,7 +68,6 @@ class Login {
                     user_properties: account_connect.user_properties,
                     meta: {
                         type: account_connect.meta.type,
-                        xuid: account_connect.meta.xuid,
                         demo: account_connect.meta.demo
                     }
                 }
@@ -100,7 +100,7 @@ class Login {
         })
     }
 
-    loginMojang() {
+    async loginMojang() {
         let mailInput = document.querySelector('.Mail')
         let passwordInput = document.querySelector('.Password')
         let cancelMojangBtn = document.querySelector('.cancel-mojang')
@@ -111,23 +111,26 @@ class Login {
         mojangBtn.addEventListener("click", () => {
             document.querySelector(".login-card").style.display = "none";
             document.querySelector(".login-card-mojang").style.display = "block";
+            // document.querySelector('.a2f-card').style.display = "none";
         })
 
         cancelMojangBtn.addEventListener("click", () => {
             document.querySelector(".login-card").style.display = "block";
             document.querySelector(".login-card-mojang").style.display = "none";
+            // document.querySelector('.a2f-card').style.display = "none";
         })
 
-        loginBtn.addEventListener("click", () => {
+        loginBtn.addEventListener("click", async() => {
             cancelMojangBtn.disabled = true;
             loginBtn.disabled = true;
             mailInput.disabled = true;
             passwordInput.disabled = true;
-            infoLogin.innerHTML = "Conectando...";
+            infoLogin.innerHTML = "Revisando Cuenta..";
 
 
             if (mailInput.value == "") {
-                infoLogin.innerHTML = "Ingrese su dirección de correo electrónico / nombre de usuario"
+                console.log(mailInput.value);
+                infoLogin.innerHTML = "Pon tu nombre de Minecraft"
                 cancelMojangBtn.disabled = false;
                 loginBtn.disabled = false;
                 mailInput.disabled = false;
@@ -144,7 +147,27 @@ class Login {
                 return
             }
 
-            Mojang.getAuth(mailInput.value, passwordInput.value).then(account_connect => {
+            let azAuth = new AZauth('https://shopalexis.xyz');
+
+            await azAuth.getAuth(mailInput.value, passwordInput.value).then(async account_connect => {
+                console.log(account_connect);
+
+                if (account_connect.error) {
+                    cancelMojangBtn.disabled = false;
+                    loginBtn.disabled = false;
+                    mailInput.disabled = false;
+                    passwordInput.disabled = false;
+                    infoLogin.innerHTML = 'Has puesto algo mal, revisa si lo pusiste todo bien.'
+                    return
+                }
+
+                // if (!account_connect.A2F) {
+                //     document.querySelector('.a2f-card').style.display = "block";
+                //     document.querySelector(".login-card-mojang").style.display = "none";
+                //     console.log("A2F");
+                //     return
+                // }
+
                 let account = {
                     access_token: account_connect.access_token,
                     client_token: account_connect.client_token,
@@ -153,7 +176,7 @@ class Login {
                     user_properties: account_connect.user_properties,
                     meta: {
                         type: account_connect.meta.type,
-                        offline: account_connect.meta.offline
+                        offline: true
                     }
                 }
 
@@ -173,11 +196,12 @@ class Login {
                 loginBtn.style.display = "block";
                 infoLogin.innerHTML = "&nbsp;";
             }).catch(err => {
+                console.log(err);
                 cancelMojangBtn.disabled = false;
                 loginBtn.disabled = false;
                 mailInput.disabled = false;
                 passwordInput.disabled = false;
-                infoLogin.innerHTML = 'Dirección de correo electrónico o contraseña no válidos'
+                infoLogin.innerHTML = 'Has puesto algo mal, revisa si lo pusiste todo bien.'
             })
         })
     }
@@ -189,9 +213,8 @@ class Login {
         let infoLogin = document.querySelector('.info-login')
         let loginBtn = document.querySelector(".login-btn")
         let mojangBtn = document.querySelector('.mojang')
-        let passBtn = document.querySelector('.Pass')
-        passBtn.remove()
-        mojangBtn.innerHTML = "Version No Premium"
+
+        mojangBtn.innerHTML = "Manti Login (BETA)"
 
         mojangBtn.addEventListener("click", () => {
             document.querySelector(".login-card").style.display = "none";
@@ -208,11 +231,11 @@ class Login {
             loginBtn.disabled = true;
             mailInput.disabled = true;
             passwordInput.disabled = true;
-            infoLogin.innerHTML = "Conectando...";
+            infoLogin.innerHTML = "Revisando Cuenta..";
 
 
             if (mailInput.value == "") {
-                infoLogin.innerHTML = "Ingrese su dirección de correo electrónico / Nombre de Usuario"
+                infoLogin.innerHTML = "Has puesto algo mal, revisa si lo pusiste todo bien."
                 cancelMojangBtn.disabled = false;
                 loginBtn.disabled = false;
                 mailInput.disabled = false;
@@ -221,7 +244,7 @@ class Login {
             }
 
             if (mailInput.value.length < 3) {
-                infoLogin.innerHTML = "Su nombre de usuario debe tener al menos 3 Caracteres"
+                infoLogin.innerHTML = "Una cuenta debe tener un minimo de 3 caracteres"
                 cancelMojangBtn.disabled = false;
                 loginBtn.disabled = false;
                 mailInput.disabled = false;
@@ -263,7 +286,7 @@ class Login {
                 loginBtn.disabled = false;
                 mailInput.disabled = false;
                 passwordInput.disabled = false;
-                infoLogin.innerHTML = 'Dirección de correo electrónico o contraseña no válidos'
+                infoLogin.innerHTML = 'Has puesto algo mal, revisa si lo pusiste todo bien.'
             })
         })
     }

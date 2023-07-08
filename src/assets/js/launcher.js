@@ -118,7 +118,7 @@ class Launcher {
                     if (account.uuid === selectaccount) accountSelect(refresh.uuid)
                 } else if (account.meta.type === 'Mojang') {
                     if (account.meta.offline) {
-                    console.log(`Iniciando Cuenta NoPremium ${account.name}...`);
+                    console.log(`Iniciando Cuenta Manti ${account.name}...`);
                         addAccount(account);
                         if (account.uuid === selectaccount) accountSelect(account.uuid)
                         continue;
