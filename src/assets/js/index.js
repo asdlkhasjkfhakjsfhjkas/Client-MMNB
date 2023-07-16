@@ -49,7 +49,7 @@ class Splash {
         ipcRenderer.invoke('update-app').then(err => {
             if (err.error) {
                 let error = err.message;
-                this.shutdown(`Error al buscar actualizacion :<br>${error}`);
+                this.shutdown(`Error al buscar actualizacion`);
             }
         })
 
