@@ -209,7 +209,7 @@ class Home {
                     console.log('Minecraft iniciado correctamente');
                     info.innerHTML = `Minecraft iniciado<br>correctamente`
 
-                    ipcRenderer.send('new-status-discord-jugando',  `Jugando a 'Betatest'`)
+                    ipcRenderer.send('new-status-discord-jugando',  `Jugando a 'GOLD UHC'`)
                 }
             })
 

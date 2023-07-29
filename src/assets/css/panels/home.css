@@ -119,8 +119,8 @@
     height: 50px;
     border-style: solid;
     border-width: 1px;
-    border-color: #2bff00;
-    background-color: rgba(0, 165, 0, 0.185);
+    border-color: #ffbb00;
+    background-color: rgba(165, 140, 0, 0.185);
     font: normal normal bold 20px/25px Trebuchet MS;
     text-align: center;
     color: #ffffff;
@@ -130,13 +130,12 @@
     border-bottom-left-radius: 20px;
     padding: 10px;
     transition: 0.2s;
-    box-shadow: 0px 0px 3px #1ba300;
+    box-shadow: 0px 0px 3px #a38500;
 }
 
 .play-btn:hover {
     color: #ffffff;
-    background: rgb(14, 121, 0);
-    letter-spacing: 5px;
+    background: rgb(121, 113, 0);
     transition: 0.2s;
     cursor: pointer;
 }
@@ -159,8 +158,8 @@
     height: 28px;
     border-style: solid;
     border-width: 1px;
-    border-color: #2bff00;
-    background-color: rgba(0, 165, 0, 0.185);
+    border-color: #ffbb00;
+    background-color: rgba(165, 140, 0, 0.185);
     font: normal normal bold 20px/25px Trebuchet MS;
     text-align: center;
     color: #f1f1f1;
@@ -170,7 +169,7 @@
     border-bottom-left-radius: 20px;
     padding: 10px;
     transition: 0.2s;
-    box-shadow: 0px 0px 3px #1ba300;
+    box-shadow: 0px 0px 3px #a37700;
 }
 
 .tooltiptext {
@@ -428,7 +427,6 @@
     line-height: 25px;
     align-items: center;
     height: 3em;
-    text-shadow: 0 0 1px #fff, 0 0 3px;
 }
 
 .cajita_prin {
