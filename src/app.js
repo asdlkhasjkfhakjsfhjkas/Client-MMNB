@@ -91,7 +91,7 @@ ipcMain.on('new-status-discord', async () => {
                 details: 'En el Menú',
                 assets: {
                     large_image: 'beta',
-                    large_text: 'v2.0.2',
+                    large_text: 'v2.0.4',
                 },
                 buttons: [
                     { label: 'Discord', url: "https://discord.gg/xvfmhuXC6M" },
@@ -119,7 +119,7 @@ ipcMain.on('new-status-discord-jugando', async (event, status) => {
                 details: status,
                 assets: {
                     large_image: 'beta',
-                    large_text: 'v2.0.2',
+                    large_text: 'v2.0.4',
                 },
                 buttons: [
                     { label: 'Discord', url: "https://discord.gg/xvfmhuXC6M" },
@@ -145,7 +145,7 @@ ipcMain.on('delete-and-new-status-discord', async () => {
                 details: 'En el Menú',
                 assets: {
                     large_image: 'beta',
-                    large_text: 'v2.0.2',
+                    large_text: 'v2.0.4',
                 },
                 buttons: [
                     { label: 'Discord', url: "https://discord.gg/xvfmhuXC6M" },

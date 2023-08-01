@@ -1,11 +1,11 @@
 {
     "name": "manti-betatest",
     "preductname": "Manti Betatest",
-    "version": "2.0.3",
+    "version": "2.0.4",
     "description": "Ayuda a testear",
     "main": "src/app.js",
     "author": "ElFo2K",
-    "url": "https://shopalexis.xyz/launcher/betatest/",
+    "url": "https://shopalexis.xyz/launcherfiles/betatest/",
     "engines": {
         "node": "^18.x.x"
     },
