@@ -1,8 +1,8 @@
 {
     "name": "manti-betatest",
-    "preductname": "Manti Betatest",
-    "version": "2.0.5",
-    "description": "Ayuda a testear",
+    "preductname": "Betatest",
+    "version": "2.0.6",
+    "description": "Launcher de testeos - Manti Studio's",
     "main": "src/app.js",
     "author": "ElFo2K",
     "url": "https://shopalexis.xyz/launcherfiles/betatest/",
